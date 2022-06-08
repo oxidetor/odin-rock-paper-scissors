@@ -1,6 +1,5 @@
 // declare function computerPlay that takes no inputs
 function computerPlay() {
-  // inside this function initialize an integer variable randNumber
   // generate a random number (either 0, 1, or 2) and store it in randNumber
   let randNumber = Math.floor(Math.random() * 3);
 
@@ -89,9 +88,14 @@ function game() {
     if (result.slice(0, 7) == "You Win") playerScore++;
   }
 
-  return playerScore > computerScore
-    ? `GAME OVER | Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
-    : playerScore < computerScore
-    ? `GAME OVER | Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
-    : `GAME OVER | Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
+  let finalResult =
+    playerScore > computerScore
+      ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
+      : playerScore < computerScore
+      ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
+      : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
+
+  console.group("GAME OVER");
+  console.log(finalResult);
+  console.groupEnd("GAME OVER");
 }
