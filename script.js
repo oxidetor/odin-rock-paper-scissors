@@ -52,14 +52,16 @@ function game() {
   for (let i = 0; i < 5; i++) {
     let result = playRound(playerSelection, computerPlay());
 
+    console.log(result);
+
     // do some comparison on the return value to decide if player or computer won
     if (result.slice(0, 8) == "You Lose") computerScore++;
     if (result.slice(0, 7) == "You Win") playerScore++;
   }
 
   return playerScore > computerScore
-    ? "You Won"
+    ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
     : playerScore < computerScore
-    ? "You Lost"
-    : "Tie";
+    ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
+    : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
 }
