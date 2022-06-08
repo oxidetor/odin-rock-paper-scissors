@@ -42,16 +42,19 @@ function getPlayerSelection() {
   while (true) {
     input = prompt("Type one of: Rock, Paper, or Scissors");
 
+    if (input == null) {
+      alert("Bad input. Try again!");
+      continue;
+    }
+
     input = `${input.trim().slice(0, 1).toUpperCase()}${input
       .trim()
       .slice(1)
       .toLowerCase()}`;
 
-    console.log(input);
-
     if (input == "Rock" || input == "Paper" || input == "Scissors") break;
     else {
-      alert("Try again! Type one of: Rock, Paper, or Scissors");
+      alert("Bad input. Try again!");
     }
   }
   return input;
