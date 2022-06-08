@@ -40,3 +40,16 @@ function playRound(playerSelection, computerSelection) {
     return "You Win! Scissors beats Paper";
   else return "Something went wrong";
 }
+
+// declare a function game() that takes no parameters
+// inside, declare the following:
+// - an integer variable playerScore to track players' score
+// - an integer variable computerScore to track computers' score
+// create a for loop that runs exactly 5 times
+// inside this for loop:
+// - call the playRound function
+// - do some comparison on the return value to decide if player or computer won
+// - increment either playerScore or computerScore
+// after for loop is exited:
+// - compare playerScore and computerScore
+// - return a string declaring the winner
