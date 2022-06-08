@@ -66,10 +66,17 @@ function game() {
   let computerScore = 0;
 
   // Play exactly 5 rounds
-  for (let i = 0; i < 5; i++) {
-    let result = playRound(getPlayerSelection(), computerPlay());
+  for (let currentRound = 1; currentRound <= 5; currentRound++) {
+    let playerSelection = getPlayerSelection();
+    let computerSelection = computerPlay();
+    let result = playRound(playerSelection, computerSelection);
 
-    console.log(result);
+    // Log game info for current round
+    console.group(`Round ${currentRound}`);
+    console.log(`You played: ${playerSelection}`);
+    console.log(`Computer played: ${computerSelection}`);
+    console.log(`Result: ${result}`);
+    console.groupEnd(`Round ${currentRound}`);
 
     // do some comparison on the return value to decide if player or computer won
     if (result.slice(0, 8) == "You Lose") computerScore++;
@@ -77,8 +84,8 @@ function game() {
   }
 
   return playerScore > computerScore
-    ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
+    ? `GAME OVER | Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
     : playerScore < computerScore
-    ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
-    : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
+    ? `GAME OVER | Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
+    : `GAME OVER | Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
 }
