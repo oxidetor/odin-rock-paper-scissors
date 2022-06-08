@@ -19,11 +19,6 @@ function computerPlay() {
 
 // declare function playRound that takes two parameters - playerSelection, computerSelection
 function playRound(playerSelection, computerSelection) {
-  // modify the playerSelection string to use Sentence case capitalization
-  playerSelection = `${playerSelection
-    .slice(0, 1)
-    .toUpperCase()}${playerSelection.slice(1).toLowerCase()}`;
-
   // calculate whose selection "wins" and return a string that declares the winner
   if (playerSelection == computerSelection) return "Tie";
   else if (playerSelection == "Rock" && computerSelection == "Paper")
@@ -41,16 +36,35 @@ function playRound(playerSelection, computerSelection) {
   else return "Something went wrong";
 }
 
+// prompt player for their selection
+function getPlayerSelection() {
+  let input;
+  while (true) {
+    input = prompt("Type one of: Rock, Paper, or Scissors");
+
+    input = `${input.trim().slice(0, 1).toUpperCase()}${input
+      .trim()
+      .slice(1)
+      .toLowerCase()}`;
+
+    console.log(input);
+
+    if (input == "Rock" || input == "Paper" || input == "Scissors") break;
+    else {
+      alert("Try again! Type one of: Rock, Paper, or Scissors");
+    }
+  }
+  return input;
+}
+
 // declare a function game() that takes no parameters
 function game() {
   let playerScore = 0;
   let computerScore = 0;
 
-  // Hardcoded for now
-  let playerSelection = "roCk";
-
+  // Play exactly 5 rounds
   for (let i = 0; i < 5; i++) {
-    let result = playRound(playerSelection, computerPlay());
+    let result = playRound(getPlayerSelection(), computerPlay());
 
     console.log(result);
 
