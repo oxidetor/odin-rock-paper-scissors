@@ -42,14 +42,24 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // declare a function game() that takes no parameters
-// inside, declare the following:
-// - an integer variable playerScore to track players' score
-// - an integer variable computerScore to track computers' score
-// create a for loop that runs exactly 5 times
-// inside this for loop:
-// - call the playRound function
-// - do some comparison on the return value to decide if player or computer won
-// - increment either playerScore or computerScore
-// after for loop is exited:
-// - compare playerScore and computerScore
-// - return a string declaring the winner
+function game() {
+  let playerScore = 0;
+  let computerScore = 0;
+
+  // Hardcoded for now
+  let playerSelection = "roCk";
+
+  for (let i = 0; i < 5; i++) {
+    let result = playRound(playerSelection, computerPlay());
+
+    // do some comparison on the return value to decide if player or computer won
+    if (result.slice(0, 8) == "You Lose") computerScore++;
+    if (result.slice(0, 7) == "You Win") playerScore++;
+  }
+
+  return playerScore > computerScore
+    ? "You Won"
+    : playerScore < computerScore
+    ? "You Lost"
+    : "Tie";
+}
