@@ -3,7 +3,8 @@ function computerPlay() {
   // generate a random number (either 0, 1, or 2) and store it in randNumber
   let randNumber = Math.floor(Math.random() * 3);
 
-  // return "Rock" if randNumber is 0, "Paper" if randNumber is 1, "Scissors" if randNumber is 2
+  // return "Rock" if randNumber is 0, "Paper" if randNumber is 1, "Scissors"
+  // if randNumber is 2
   switch (randNumber) {
     case 0:
       return "Rock";
@@ -16,9 +17,10 @@ function computerPlay() {
   }
 }
 
-// declare function playRound that takes two parameters - playerSelection, computerSelection
+// declare function playRound that takes two parameters - playerSelection,
+// computerSelection
 function playRound(playerSelection, computerSelection) {
-  // calculate whose selection "wins" and return a string that declares the winner
+  // calculate whose selection "wins" and return a string that declares winner
   if (playerSelection == computerSelection) return "Tie";
   else if (playerSelection == "Rock" && computerSelection == "Paper")
     return "You Lose! Paper beats Rock";
@@ -83,7 +85,7 @@ function game() {
     console.log(`Result: ${result}`);
     console.groupEnd(`Round ${currentRound}`);
 
-    // do some comparison on the return value to decide if player or computer won
+    // do some comparison on the return value to decide which player won
     if (result.slice(0, 8) == "You Lose") computerScore++;
     if (result.slice(0, 7) == "You Win") playerScore++;
   }
