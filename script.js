@@ -40,11 +40,12 @@ function playRound(playerSelection, computerSelection) {
 function getPlayerSelection() {
   let input;
   while (true) {
-    input = prompt("Type one of: Rock, Paper, or Scissors");
+    input = prompt(
+      "Type one of: Rock, Paper, or Scissors (or Q/q/ESC to quit)"
+    );
 
-    if (input == null) {
-      alert("Bad input. Try again!");
-      continue;
+    if (input == null || input == "Q" || input == "q") {
+      return "quit";
     }
 
     input = `${input.trim().slice(0, 1).toUpperCase()}${input
@@ -68,6 +69,11 @@ function game() {
   // Play exactly 5 rounds
   for (let currentRound = 1; currentRound <= 5; currentRound++) {
     let playerSelection = getPlayerSelection();
+
+    if (playerSelection == "quit") {
+      return "You have exited the game. Thanks for playing!";
+    }
+
     let computerSelection = computerPlay();
     let result = playRound(playerSelection, computerSelection);
 
