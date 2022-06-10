@@ -41,58 +41,48 @@ function getPlayerSelection() {
 function playRound(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) return "Tie";
   else if (playerSelection == "Rock" && computerSelection == "Paper")
-    return "You Lose! Paper beats Rock";
+    return computerScore++, "You Lose! Paper beats Rock";
   else if (playerSelection == "Paper" && computerSelection == "Rock")
-    return "You Win! Paper beats Rock";
+    return playerScore++, "You Win! Paper beats Rock";
   else if (playerSelection == "Scissors" && computerSelection == "Rock")
-    return "You Lose! Rock beats Scissors";
+    return computerScore++, "You Lose! Rock beats Scissors";
   else if (playerSelection == "Rock" && computerSelection == "Scissors")
-    return "You Win! Rock beats Scissors";
+    return playerScore++, "You Win! Rock beats Scissors";
   else if (playerSelection == "Paper" && computerSelection == "Scissors")
-    return "You Lose! Scissors beats Paper";
+    return computerScore++, "You Lose! Scissors beats Paper";
   else if (playerSelection == "Scissors" && computerSelection == "Paper")
-    return "You Win! Scissors beats Paper";
+    return playerScore++, "You Win! Scissors beats Paper";
   else return "Something went wrong";
 }
 
-function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-
-  let playerSelection = getPlayerSelection();
-
-  if (playerSelection == "quit") {
-    return "You have exited the game. Thanks for playing!";
-  }
-
-  let computerSelection = computerPlay();
-  let result = playRound(playerSelection, computerSelection);
-
-  console.log(`You played: ${playerSelection}`);
-  console.log(`Computer played: ${computerSelection}`);
-  console.log(`Result: ${result}`);
-
-  if (result.slice(0, 8) == "You Lose") computerScore++;
-  if (result.slice(0, 7) == "You Win") playerScore++;
-
-  // let finalResult =
-  //   playerScore > computerScore
-  //     ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
-  //     : playerScore < computerScore
-  //     ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
-  //     : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
-
-  // console.group("GAME OVER");
-  // console.log(finalResult);
-  // console.groupEnd("GAME OVER");
-}
-
 const buttons = document.querySelectorAll(".btn");
-const results = document.querySelector(".results");
+const results = document.querySelector(".round-results");
+const playerScoreDiv = document.querySelector("#player-score");
+const computerScoreDiv = document.querySelector("#computer-score");
 
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
     const playerSelection = e.target.innerText;
     results.innerText = playRound(playerSelection, computerPlay());
+    playerScoreDiv.innerText = playerScore;
+    computerScoreDiv.innerText = computerScore;
   })
 );
+
+let playerScore = 0;
+let computerScore = 0;
+
+// console.log(`You played: ${playerSelection}`);
+// console.log(`Computer played: ${computerSelection}`);
+// console.log(`Result: ${result}`);
+
+// let finalResult =
+//   playerScore > computerScore
+//     ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
+//     : playerScore < computerScore
+//     ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
+//     : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
+
+// console.group("GAME OVER");
+// console.log(finalResult);
+// console.groupEnd("GAME OVER");
