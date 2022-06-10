@@ -86,3 +86,12 @@ function game() {
   // console.log(finalResult);
   // console.groupEnd("GAME OVER");
 }
+
+const buttons = document.querySelectorAll(".btn");
+
+buttons.forEach((button) =>
+  button.addEventListener("click", (e) => {
+    const playerSelection = e.target.innerText;
+    playRound(playerSelection, computerPlay());
+  })
+);
