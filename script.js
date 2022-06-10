@@ -59,7 +59,7 @@ let playerScore = 0;
 let computerScore = 0;
 
 const buttons = document.querySelectorAll(".btn");
-const roundResult = document.querySelector("#round-result");
+const results = document.querySelector("#results");
 const playerSelectionDiv = document.querySelector("#player-selection");
 const computerSelectionDiv = document.querySelector("#computer-selection");
 const playerScoreDiv = document.querySelector("#player-score");
@@ -67,11 +67,13 @@ const computerScoreDiv = document.querySelector("#computer-score");
 
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
-    finalResults.innerText = "";
+    results.innerText = "";
 
-    const playerSelection = e.target.innerText;
+    console.log(e.target.alt);
+
+    const playerSelection = e.target.alt;
     const computerSelection = computerPlay();
-    roundResult.innerText = playRound(playerSelection, computerSelection);
+    results.innerText = playRound(playerSelection, computerSelection);
 
     playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
     computerSelectionDiv.innerText = `Computer Played: ${computerSelection}`;
@@ -87,9 +89,10 @@ const finalResults = document.querySelector(".final-results");
 
 function checkForWinner() {
   if (playerScore == 5 || computerScore == 5) {
-    let resultText = `GAME OVER. Final Score: ${playerScore}:${computerScore} 
-      ${playerScore == 5 ? " You Won! 🏆️" : "You Lost 🥀"}`;
-    finalResults.innerText = resultText;
+    let resultText = `GAME OVER. ${
+      playerScore == 5 ? " You Won! 🏆️" : "You Lost 🥀"
+    }`;
+    results.innerText = resultText;
 
     playerScore = 0;
     computerScore = 0;

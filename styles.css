@@ -1,21 +1,40 @@
 body {
   background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+  align-items: center;
 }
 
-.rock {
-  background-image: url("./assets/rock.jpg");
-  width: 200px;
-  height: 200px;
+.main {
+  display: flex;
+  margin: auto;
+  gap: 80px;
 }
 
-.paper {
-  background-image: url("./assets/paper.jpg");
-  width: 200px;
-  height: 200px;
+.player,
+.computer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+.btn {
+  display: flex;
+  justify-content: center;
 }
 
-.scissors {
-  background-image: url("./assets/scissors.jpg");
+img {
   width: 200px;
   height: 200px;
+  object-fit: cover;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  width: 440px;
+  gap: 20px;
 }

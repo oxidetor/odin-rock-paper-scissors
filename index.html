@@ -8,21 +8,39 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="buttons-container">
-      <div class="rock btn" id="rock-player">Rock</div>
-      <div class="paper btn" id="paper-player">Paper</div>
-      <div class="scissors btn" id="scissors-player">Scissors</div>
+    <div class="main">
+      <div class="player">
+        <div class="buttons-container" id="player-btns">
+          <div class="rock btn" id="rock-player">
+            <img src="./assets/rock.jpg" alt="Rock" />
+          </div>
+          <div class="paper btn" id="paper-player">
+            <img src="./assets/paper.jpg" alt="Paper" />
+          </div>
+          <div class="scissors btn" id="scissors-player">
+            <img src="./assets/scissors.jpg" alt="Scissors" />
+          </div>
+        </div>
+        <div id="player-selection"></div>
+        <div id="player-score"></div>
+      </div>
+      <div class="computer">
+        <div class="buttons-container" id="computer-btns">
+          <div class="rock btn" id="rock-computer">
+            <img src="./assets/rock.jpg" alt="Rock" />
+          </div>
+          <div class="paper btn" id="paper-computer">
+            <img src="./assets/paper.jpg" alt="Paper" />
+          </div>
+          <div class="scissors btn" id="scissors-computer">
+            <img src="./assets/scissors.jpg" alt="Scissors" />
+          </div>
+        </div>
+        <div id="computer-selection"></div>
+        <div id="computer-score"></div>
+      </div>
     </div>
-    <div class="round-info">
-      <div id="player-selection"></div>
-      <div id="computer-selection"></div>
-      <div id="round-result"></div>
-    </div>
-    <div class="scores">
-      <div id="player-score"></div>
-      <div id="computer-score"></div>
-    </div>
-    <div class="final-results"></div>
+    <div id="results"></div>
     <script src="./script.js"></script>
   </body>
 </html>
