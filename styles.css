@@ -1,0 +1,21 @@
+body {
+  background-color: aliceblue;
+}
+
+.rock {
+  background-image: url("./assets/rock.jpg");
+  width: 200px;
+  height: 200px;
+}
+
+.paper {
+  background-image: url("./assets/paper.jpg");
+  width: 200px;
+  height: 200px;
+}
+
+.scissors {
+  background-image: url("./assets/scissors.jpg");
+  width: 200px;
+  height: 200px;
+}
