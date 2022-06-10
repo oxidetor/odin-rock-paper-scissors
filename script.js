@@ -59,35 +59,30 @@ function game() {
   let playerScore = 0;
   let computerScore = 0;
 
-  for (let currentRound = 1; currentRound <= 5; currentRound++) {
-    let playerSelection = getPlayerSelection();
+  let playerSelection = getPlayerSelection();
 
-    if (playerSelection == "quit") {
-      return "You have exited the game. Thanks for playing!";
-    }
-
-    let computerSelection = computerPlay();
-    let result = playRound(playerSelection, computerSelection);
-
-    // Log game info for current round
-    console.group(`Round ${currentRound}`);
-    console.log(`You played: ${playerSelection}`);
-    console.log(`Computer played: ${computerSelection}`);
-    console.log(`Result: ${result}`);
-    console.groupEnd(`Round ${currentRound}`);
-
-    if (result.slice(0, 8) == "You Lose") computerScore++;
-    if (result.slice(0, 7) == "You Win") playerScore++;
+  if (playerSelection == "quit") {
+    return "You have exited the game. Thanks for playing!";
   }
 
-  let finalResult =
-    playerScore > computerScore
-      ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
-      : playerScore < computerScore
-      ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
-      : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
+  let computerSelection = computerPlay();
+  let result = playRound(playerSelection, computerSelection);
 
-  console.group("GAME OVER");
-  console.log(finalResult);
-  console.groupEnd("GAME OVER");
+  console.log(`You played: ${playerSelection}`);
+  console.log(`Computer played: ${computerSelection}`);
+  console.log(`Result: ${result}`);
+
+  if (result.slice(0, 8) == "You Lose") computerScore++;
+  if (result.slice(0, 7) == "You Win") playerScore++;
+
+  // let finalResult =
+  //   playerScore > computerScore
+  //     ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
+  //     : playerScore < computerScore
+  //     ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
+  //     : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
+
+  // console.group("GAME OVER");
+  // console.log(finalResult);
+  // console.groupEnd("GAME OVER");
 }
