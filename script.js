@@ -58,15 +58,15 @@ function playRound(playerSelection, computerSelection) {
 let playerScore = 0;
 let computerScore = 0;
 
-const sprites = document.querySelectorAll(".sprite");
+const buttons = document.querySelectorAll(".btn");
 const roundResult = document.querySelector("#round-result");
 const playerSelectionDiv = document.querySelector("#player-selection");
 const computerSelectionDiv = document.querySelector("#computer-selection");
 const playerScoreDiv = document.querySelector("#player-score");
 const computerScoreDiv = document.querySelector("#computer-score");
 
-sprites.forEach((sprite) =>
-  sprite.addEventListener("click", (e) => {
+buttons.forEach((button) =>
+  button.addEventListener("click", (e) => {
     finalResults.innerText = "";
 
     const playerSelection = e.target.innerText;
