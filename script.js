@@ -88,10 +88,11 @@ function game() {
 }
 
 const buttons = document.querySelectorAll(".btn");
+const results = document.querySelector(".results");
 
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
     const playerSelection = e.target.innerText;
-    playRound(playerSelection, computerPlay());
+    results.innerText = playRound(playerSelection, computerPlay());
   })
 );
