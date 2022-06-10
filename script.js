@@ -73,30 +73,39 @@ computerSelectionDiv.innerText = "Computer played: ";
 results.innerText = "(First to win 5 rounds wins it all!)";
 
 playerButtons.forEach((playerButton) =>
-  playerButton.addEventListener("click", (e) => {
-    results.innerText = "";
-    console.log(e.target);
+  playerButton.addEventListener(
+    "click",
+    (e) => {
+      removeSelectedStyle(e);
 
-    e.target.classList.add("clicked");
+      results.innerText = "";
+      playerTarget = e.target.parentNode;
+      console.log(e.target.parentNode);
 
-    const playerSelection = e.target.alt;
-    const computerSelection = computerPlay();
+      const playerSelection = e.target.alt;
+      const computerSelection = computerPlay();
 
-    const computerTarget = document.querySelector(
-      `#computer-btns img[alt="${computerSelection}"]`
-    );
-    computerTarget.classList.add("clicked");
+      const computerTarget = document.querySelector(
+        `#computer-btns img[alt="${computerSelection}"]`
+      ).parentNode;
 
-    results.innerText = playRound(playerSelection, computerSelection);
+      playerTarget.classList.add("clicked", "selected");
+      computerTarget.classList.add("clicked", "selected");
 
-    playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
-    computerSelectionDiv.innerText = `Computer Played: ${computerSelection}`;
+      results.innerText = playRound(playerSelection, computerSelection);
 
-    playerScoreDiv.innerText = playerScore;
-    computerScoreDiv.innerText = computerScore;
+      playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
+      computerSelectionDiv.innerText = `Computer Played: ${computerSelection}`;
 
-    checkForWinner();
-  })
+      playerScoreDiv.innerText = playerScore;
+      computerScoreDiv.innerText = computerScore;
+
+      checkForWinner();
+    },
+    {
+      capture: false,
+    }
+  )
 );
 
 allButtons.forEach((button) =>
@@ -106,6 +115,10 @@ allButtons.forEach((button) =>
 function removeTransition(e) {
   if (e.propertyName !== "transform") return;
   e.target.classList.remove("clicked");
+}
+
+function removeSelectedStyle(e) {
+  allButtons.forEach((button) => button.classList.remove("selected"));
 }
 
 const finalResults = document.querySelector(".final-results");
