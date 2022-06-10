@@ -1,10 +1,6 @@
-// declare function computerPlay that takes no inputs
 function computerPlay() {
-  // generate a random number (either 0, 1, or 2) and store it in randNumber
   let randNumber = Math.floor(Math.random() * 3);
 
-  // return "Rock" if randNumber is 0, "Paper" if randNumber is 1, "Scissors"
-  // if randNumber is 2
   switch (randNumber) {
     case 0:
       return "Rock";
@@ -17,10 +13,32 @@ function computerPlay() {
   }
 }
 
-// declare function playRound that takes two parameters - playerSelection,
-// computerSelection
+function getPlayerSelection() {
+  let input;
+  while (true) {
+    input = prompt(
+      "Type one of: Rock, Paper, or Scissors (or Q/q/ESC to quit)"
+    );
+
+    if (input == null || input == "Q" || input == "q") {
+      return "quit";
+    }
+
+    // Trim whitespace and capitalize first letter of input (rest lowercase)
+    input = `${input.trim().slice(0, 1).toUpperCase()}${input
+      .trim()
+      .slice(1)
+      .toLowerCase()}`;
+
+    if (input == "Rock" || input == "Paper" || input == "Scissors") break;
+    else {
+      alert("Bad input. Try again!");
+    }
+  }
+  return input;
+}
+
 function playRound(playerSelection, computerSelection) {
-  // calculate whose selection "wins" and return a string that declares winner
   if (playerSelection == computerSelection) return "Tie";
   else if (playerSelection == "Rock" && computerSelection == "Paper")
     return "You Lose! Paper beats Rock";
@@ -37,37 +55,10 @@ function playRound(playerSelection, computerSelection) {
   else return "Something went wrong";
 }
 
-// prompt player for their selection
-function getPlayerSelection() {
-  let input;
-  while (true) {
-    input = prompt(
-      "Type one of: Rock, Paper, or Scissors (or Q/q/ESC to quit)"
-    );
-
-    if (input == null || input == "Q" || input == "q") {
-      return "quit";
-    }
-
-    input = `${input.trim().slice(0, 1).toUpperCase()}${input
-      .trim()
-      .slice(1)
-      .toLowerCase()}`;
-
-    if (input == "Rock" || input == "Paper" || input == "Scissors") break;
-    else {
-      alert("Bad input. Try again!");
-    }
-  }
-  return input;
-}
-
-// declare a function game() that takes no parameters
 function game() {
   let playerScore = 0;
   let computerScore = 0;
 
-  // Play exactly 5 rounds
   for (let currentRound = 1; currentRound <= 5; currentRound++) {
     let playerSelection = getPlayerSelection();
 
@@ -85,7 +76,6 @@ function game() {
     console.log(`Result: ${result}`);
     console.groupEnd(`Round ${currentRound}`);
 
-    // do some comparison on the return value to decide which player won
     if (result.slice(0, 8) == "You Lose") computerScore++;
     if (result.slice(0, 7) == "You Win") playerScore++;
   }
