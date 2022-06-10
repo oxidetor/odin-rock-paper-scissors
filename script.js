@@ -67,6 +67,8 @@ const computerScoreDiv = document.querySelector("#computer-score");
 
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
+    finalResults.innerText = "";
+
     const playerSelection = e.target.innerText;
     const computerSelection = computerPlay();
     roundResult.innerText = playRound(playerSelection, computerSelection);
@@ -76,20 +78,20 @@ buttons.forEach((button) =>
 
     playerScoreDiv.innerText = playerScore;
     computerScoreDiv.innerText = computerScore;
+
+    checkForWinner();
   })
 );
 
-// console.log(`You played: ${playerSelection}`);
-// console.log(`Computer played: ${computerSelection}`);
-// console.log(`Result: ${result}`);
+const finalResults = document.querySelector(".final-results");
 
-// let finalResult =
-//   playerScore > computerScore
-//     ? `Final Score: ${playerScore}:${computerScore} | You Won! 🏆️`
-//     : playerScore < computerScore
-//     ? `Final Score: ${playerScore}:${computerScore} | You Lost! 🥀`
-//     : `Final Score: ${playerScore}:${computerScore} | It's a Tie! 👔`;
+function checkForWinner() {
+  if (playerScore == 5 || computerScore == 5) {
+    let resultText = `GAME OVER. Final Score: ${playerScore}:${computerScore} 
+      ${playerScore == 5 ? " You Won! 🏆️" : "You Lost 🥀"}`;
+    finalResults.innerText = resultText;
 
-// console.group("GAME OVER");
-// console.log(finalResult);
-// console.groupEnd("GAME OVER");
+    playerScore = 0;
+    computerScore = 0;
+  }
+}
