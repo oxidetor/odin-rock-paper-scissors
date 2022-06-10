@@ -55,22 +55,29 @@ function playRound(playerSelection, computerSelection) {
   else return "Something went wrong";
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
 const buttons = document.querySelectorAll(".btn");
-const results = document.querySelector(".round-results");
+const roundResult = document.querySelector("#round-result");
+const playerSelectionDiv = document.querySelector("#player-selection");
+const computerSelectionDiv = document.querySelector("#computer-selection");
 const playerScoreDiv = document.querySelector("#player-score");
 const computerScoreDiv = document.querySelector("#computer-score");
 
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
     const playerSelection = e.target.innerText;
-    results.innerText = playRound(playerSelection, computerPlay());
+    const computerSelection = computerPlay();
+    roundResult.innerText = playRound(playerSelection, computerSelection);
+
+    playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
+    computerSelectionDiv.innerText = `Computer Played: ${computerSelection}`;
+
     playerScoreDiv.innerText = playerScore;
     computerScoreDiv.innerText = computerScore;
   })
 );
-
-let playerScore = 0;
-let computerScore = 0;
 
 // console.log(`You played: ${playerSelection}`);
 // console.log(`Computer played: ${computerSelection}`);
