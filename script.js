@@ -59,6 +59,7 @@ let playerScore = 0;
 let computerScore = 0;
 
 const playerButtons = document.querySelectorAll("#player-btns .btn");
+const allButtons = document.querySelectorAll(".btn");
 const results = document.querySelector("#results");
 const playerSelectionDiv = document.querySelector("#player-selection");
 const computerSelectionDiv = document.querySelector("#computer-selection");
@@ -74,11 +75,18 @@ results.innerText = "(First to win 5 rounds wins it all!)";
 playerButtons.forEach((playerButton) =>
   playerButton.addEventListener("click", (e) => {
     results.innerText = "";
+    console.log(e.target);
 
-    console.log(e.target.alt);
+    e.target.classList.add("clicked");
 
     const playerSelection = e.target.alt;
     const computerSelection = computerPlay();
+
+    const computerTarget = document.querySelector(
+      `#computer-btns img[alt="${computerSelection}"]`
+    );
+    computerTarget.classList.add("clicked");
+
     results.innerText = playRound(playerSelection, computerSelection);
 
     playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
@@ -90,6 +98,15 @@ playerButtons.forEach((playerButton) =>
     checkForWinner();
   })
 );
+
+allButtons.forEach((button) =>
+  button.addEventListener("transitionend", removeTransition)
+);
+
+function removeTransition(e) {
+  if (e.propertyName !== "transform") return;
+  e.target.classList.remove("clicked");
+}
 
 const finalResults = document.querySelector(".final-results");
 
