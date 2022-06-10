@@ -65,6 +65,12 @@ const computerSelectionDiv = document.querySelector("#computer-selection");
 const playerScoreDiv = document.querySelector("#player-score");
 const computerScoreDiv = document.querySelector("#computer-score");
 
+playerScoreDiv.innerText = "0";
+computerScoreDiv.innerText = "0";
+playerSelectionDiv.innerText = "You played: ";
+computerSelectionDiv.innerText = "Computer played: ";
+results.innerText = ".";
+
 buttons.forEach((button) =>
   button.addEventListener("click", (e) => {
     results.innerText = "";
