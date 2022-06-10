@@ -58,7 +58,7 @@ function playRound(playerSelection, computerSelection) {
 let playerScore = 0;
 let computerScore = 0;
 
-const buttons = document.querySelectorAll(".btn");
+const playerButtons = document.querySelectorAll("#player-btns .btn");
 const results = document.querySelector("#results");
 const playerSelectionDiv = document.querySelector("#player-selection");
 const computerSelectionDiv = document.querySelector("#computer-selection");
@@ -69,10 +69,10 @@ playerScoreDiv.innerText = "0";
 computerScoreDiv.innerText = "0";
 playerSelectionDiv.innerText = "You played: ";
 computerSelectionDiv.innerText = "Computer played: ";
-results.innerText = ".";
+results.innerText = "(First to win 5 rounds wins it all!)";
 
-buttons.forEach((button) =>
-  button.addEventListener("click", (e) => {
+playerButtons.forEach((playerButton) =>
+  playerButton.addEventListener("click", (e) => {
     results.innerText = "";
 
     console.log(e.target.alt);
