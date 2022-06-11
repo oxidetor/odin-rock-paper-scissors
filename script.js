@@ -58,7 +58,7 @@ function playRound(playerSelection, computerSelection) {
 let playerScore = 0;
 let computerScore = 0;
 
-const playerButtons = document.querySelectorAll("#player-btns .btn");
+const playerButtons = document.querySelectorAll("#player-btns .btn img");
 const allButtons = document.querySelectorAll(".btn");
 const results = document.querySelector("#results");
 const playerSelectionDiv = document.querySelector("#player-selection");
@@ -76,13 +76,12 @@ playerButtons.forEach((playerButton) =>
   playerButton.addEventListener(
     "click",
     (e) => {
-      e.stopPropagation();
       removeSelectedStyle(e);
       removeGreyedOutStyle(e);
 
       results.innerText = "";
       playerTarget = e.target.parentNode;
-      console.log(e.target.parentNode);
+      console.log(playerTarget);
 
       const playerSelection = e.target.alt;
       const computerSelection = computerPlay();
@@ -128,9 +127,11 @@ function getAllSiblings(element, parent) {
   return children.filter((child) => child !== element);
 }
 
-allButtons.forEach((button) =>
-  button.addEventListener("transitionend", removeTransition)
-);
+allButtons.forEach((button) => {
+  button.addEventListener("transitionend", removeTransition);
+  console.log("transition ended");
+  return;
+});
 
 function removeTransition(e) {
   if (e.propertyName !== "transform") return;
