@@ -76,6 +76,7 @@ playerButtons.forEach((playerButton) =>
   playerButton.addEventListener(
     "click",
     (e) => {
+      e.stopPropagation();
       removeSelectedStyle(e);
       removeGreyedOutStyle(e);
 

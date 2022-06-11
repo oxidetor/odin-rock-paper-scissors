@@ -2,7 +2,7 @@ body {
   background-color: aliceblue;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-family: "Kdam Thmor Pro", sans-serif;
 }
@@ -13,7 +13,7 @@ body {
 
 .main {
   display: flex;
-  margin: auto;
+  align-items: flex-start;
   gap: 80px;
 }
 
@@ -21,6 +21,7 @@ body {
 .computer {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   gap: 60px;
 }
