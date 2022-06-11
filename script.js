@@ -1,3 +1,20 @@
+let playerScore = 0;
+let computerScore = 0;
+
+const playerButtons = document.querySelectorAll("#player-btns .btn img");
+const allButtons = document.querySelectorAll(".btn");
+const results = document.querySelector("#results");
+const playerSelectionDiv = document.querySelector("#player-selection");
+const computerSelectionDiv = document.querySelector("#computer-selection");
+const playerScoreDiv = document.querySelector("#player-score");
+const computerScoreDiv = document.querySelector("#computer-score");
+
+playerScoreDiv.innerText = "0";
+computerScoreDiv.innerText = "0";
+playerSelectionDiv.innerText = "You played: ";
+computerSelectionDiv.innerText = "Computer played: ";
+results.innerText = "(First to win 5 rounds wins it all!)";
+
 function computerPlay() {
   let randNumber = Math.floor(Math.random() * 3);
 
@@ -40,64 +57,41 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-let playerScore = 0;
-let computerScore = 0;
+function checkForWinner() {
+  if (playerScore == 5 || computerScore == 5) {
+    let resultText = `GAME OVER. ${
+      playerScore == 5 ? " You Won! 🏆️" : "You Lost 🥀"
+    }`;
+    results.innerText = resultText;
 
-const playerButtons = document.querySelectorAll("#player-btns .btn img");
-const allButtons = document.querySelectorAll(".btn");
-const results = document.querySelector("#results");
-const playerSelectionDiv = document.querySelector("#player-selection");
-const computerSelectionDiv = document.querySelector("#computer-selection");
-const playerScoreDiv = document.querySelector("#player-score");
-const computerScoreDiv = document.querySelector("#computer-score");
-
-playerScoreDiv.innerText = "0";
-computerScoreDiv.innerText = "0";
-playerSelectionDiv.innerText = "You played: ";
-computerSelectionDiv.innerText = "Computer played: ";
-results.innerText = "(First to win 5 rounds wins it all!)";
+    playerScore = 0;
+    computerScore = 0;
+  }
+}
 
 playerButtons.forEach((playerButton) =>
   playerButton.addEventListener(
     "click",
     (e) => {
-      removeSelectedStyle(e);
-      removeGreyedOutStyle(e);
-
-      results.innerText = "";
-      playerTarget = e.target.parentNode;
-      console.log(playerTarget);
-
       const playerSelection = e.target.alt;
       const computerSelection = computerPlay();
 
+      removeSelectedStyle();
+      removeGreyedOutStyle();
+
+      playerTarget = e.target.parentNode;
       const computerTarget = document.querySelector(
         `#computer-btns img[alt="${computerSelection}"]`
       ).parentNode;
 
-      playerUnselected = getAllSiblings(playerTarget, playerTarget.parentNode);
-      computerUnselected = getAllSiblings(
-        computerTarget,
-        computerTarget.parentNode
-      );
+      styleUnselectedSiblings(playerTarget);
+      styleUnselectedSiblings(computerTarget);
+      addSelectedStyle(playerTarget, computerTarget);
 
-      playerUnselected.forEach((unselected) =>
-        unselected.classList.add("greyed-out")
-      );
-      computerUnselected.forEach((unselected) =>
-        unselected.classList.add("greyed-out")
-      );
+      updateSelectionInfo(playerSelection, computerSelection);
 
-      playerTarget.classList.add("clicked", "selected");
-      computerTarget.classList.add("clicked", "selected");
-
-      results.innerText = playRound(playerSelection, computerSelection);
-
-      playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
-      computerSelectionDiv.innerText = `Computer Played: ${computerSelection}`;
-
-      playerScoreDiv.innerText = playerScore;
-      computerScoreDiv.innerText = computerScore;
+      updateResults(playerSelection, computerSelection);
+      updateScores();
 
       checkForWinner();
     },
@@ -107,9 +101,32 @@ playerButtons.forEach((playerButton) =>
   )
 );
 
+function updateSelectionInfo(playerSelection, computerSelection) {
+  playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
+  computerSelectionDiv.innerText = `Computer Played: ${computerSelection}`;
+}
+
+function addSelectedStyle(playerTarget, computerTarget) {
+  playerTarget.classList.add("clicked", "selected");
+  computerTarget.classList.add("clicked", "selected");
+}
+function updateResults(playerSelection, computerSelection) {
+  results.innerText = playRound(playerSelection, computerSelection);
+}
+
+function updateScores() {
+  playerScoreDiv.innerText = playerScore;
+  computerScoreDiv.innerText = computerScore;
+}
+
 function getAllSiblings(element, parent) {
   const children = [...parent.children];
   return children.filter((child) => child !== element);
+}
+
+function styleUnselectedSiblings(target) {
+  unselected = getAllSiblings(target, target.parentNode);
+  unselected.forEach((sibling) => sibling.classList.add("greyed-out"));
 }
 
 allButtons.forEach((button) =>
@@ -127,18 +144,4 @@ function removeSelectedStyle(e) {
 
 function removeGreyedOutStyle(e) {
   allButtons.forEach((button) => button.classList.remove("greyed-out"));
-}
-
-const finalResults = document.querySelector(".final-results");
-
-function checkForWinner() {
-  if (playerScore == 5 || computerScore == 5) {
-    let resultText = `GAME OVER. ${
-      playerScore == 5 ? " You Won! 🏆️" : "You Lost 🥀"
-    }`;
-    results.innerText = resultText;
-
-    playerScore = 0;
-    computerScore = 0;
-  }
 }
