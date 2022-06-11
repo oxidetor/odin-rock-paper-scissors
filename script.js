@@ -38,21 +38,31 @@ function getPlayerSelection() {
   return input;
 }
 
+function chooseWinner(playerSelection, computerSelection) {
+  if (playerSelection == computerSelection) return 0;
+  else if (
+    (playerSelection == "Rock" && computerSelection == "Scissors") ||
+    (playerSelection == "Scissors" && computerSelection == "Paper") ||
+    (playerSelection == "Paper" && computerSelection == "Rock")
+  )
+    return 1;
+  else return 2;
+}
+
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection == computerSelection) return "Tie";
-  else if (playerSelection == "Rock" && computerSelection == "Paper")
-    return computerScore++, "You Lose! Paper beats Rock";
-  else if (playerSelection == "Paper" && computerSelection == "Rock")
-    return playerScore++, "You Win! Paper beats Rock";
-  else if (playerSelection == "Scissors" && computerSelection == "Rock")
-    return computerScore++, "You Lose! Rock beats Scissors";
-  else if (playerSelection == "Rock" && computerSelection == "Scissors")
-    return playerScore++, "You Win! Rock beats Scissors";
-  else if (playerSelection == "Paper" && computerSelection == "Scissors")
-    return computerScore++, "You Lose! Scissors beats Paper";
-  else if (playerSelection == "Scissors" && computerSelection == "Paper")
-    return playerScore++, "You Win! Scissors beats Paper";
-  else return "Something went wrong";
+  switch (chooseWinner(playerSelection, computerSelection)) {
+    case 0:
+      return "Tie";
+    case 1:
+      return (
+        playerScore++, `You Win! ${playerSelection} beats ${computerSelection}`
+      );
+    case 2:
+      return (
+        computerScore++,
+        `You Lose! ${computerSelection} beats ${playerSelection}`
+      );
+  }
 }
 
 let playerScore = 0;
@@ -127,11 +137,9 @@ function getAllSiblings(element, parent) {
   return children.filter((child) => child !== element);
 }
 
-allButtons.forEach((button) => {
-  button.addEventListener("transitionend", removeTransition);
-  console.log("transition ended");
-  return;
-});
+allButtons.forEach((button) =>
+  button.addEventListener("transitionend", removeTransition)
+);
 
 function removeTransition(e) {
   if (e.propertyName !== "transform") return;
