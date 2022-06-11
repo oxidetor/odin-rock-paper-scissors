@@ -2,18 +2,43 @@ let playerScore = 0;
 let computerScore = 0;
 
 const playerButtons = document.querySelectorAll("#player-btns .btn img");
-const allButtons = document.querySelectorAll(".btn");
-const results = document.querySelector("#results");
-const playerSelectionDiv = document.querySelector("#player-selection");
-const computerSelectionDiv = document.querySelector("#computer-selection");
-const playerScoreDiv = document.querySelector("#player-score");
-const computerScoreDiv = document.querySelector("#computer-score");
 
-playerScoreDiv.innerText = "0";
-computerScoreDiv.innerText = "0";
-playerSelectionDiv.innerText = "You played: ";
-computerSelectionDiv.innerText = "Computer played: ";
-results.innerText = "(First to win 5 rounds wins it all!)";
+playerButtons.forEach((playerButton) =>
+  playerButton.addEventListener(
+    "click",
+    (e) => {
+      const playerSelection = e.target.alt;
+      const computerSelection = computerPlay();
+
+      removeSelectedStyle();
+      removeGreyedOutStyle();
+
+      playerTarget = e.target.parentNode;
+      const computerTarget = document.querySelector(
+        `#computer-btns img[alt="${computerSelection}"]`
+      ).parentNode;
+
+      styleUnselectedSiblings(playerTarget);
+      styleUnselectedSiblings(computerTarget);
+      addSelectedStyle(playerTarget, computerTarget);
+
+      updateSelectionInfo(playerSelection, computerSelection);
+
+      updateResults(playerSelection, computerSelection);
+      updateScores();
+      checkForWinner();
+    },
+    {
+      capture: false,
+    }
+  )
+);
+
+const allButtons = document.querySelectorAll(".btn");
+
+allButtons.forEach((button) =>
+  button.addEventListener("transitionend", removeTransition)
+);
 
 function computerPlay() {
   let randNumber = Math.floor(Math.random() * 3);
@@ -69,39 +94,9 @@ function checkForWinner() {
   }
 }
 
-playerButtons.forEach((playerButton) =>
-  playerButton.addEventListener(
-    "click",
-    (e) => {
-      const playerSelection = e.target.alt;
-      const computerSelection = computerPlay();
-
-      removeSelectedStyle();
-      removeGreyedOutStyle();
-
-      playerTarget = e.target.parentNode;
-      const computerTarget = document.querySelector(
-        `#computer-btns img[alt="${computerSelection}"]`
-      ).parentNode;
-
-      styleUnselectedSiblings(playerTarget);
-      styleUnselectedSiblings(computerTarget);
-      addSelectedStyle(playerTarget, computerTarget);
-
-      updateSelectionInfo(playerSelection, computerSelection);
-
-      updateResults(playerSelection, computerSelection);
-      updateScores();
-
-      checkForWinner();
-    },
-    {
-      capture: false,
-    }
-  )
-);
-
 function updateSelectionInfo(playerSelection, computerSelection) {
+  const playerSelectionDiv = document.querySelector("#player-selection");
+  const computerSelectionDiv = document.querySelector("#computer-selection");
   playerSelectionDiv.innerText = `You Played: ${playerSelection}`;
   computerSelectionDiv.innerText = `Computer Played: ${computerSelection}`;
 }
@@ -110,11 +105,15 @@ function addSelectedStyle(playerTarget, computerTarget) {
   playerTarget.classList.add("clicked", "selected");
   computerTarget.classList.add("clicked", "selected");
 }
+
 function updateResults(playerSelection, computerSelection) {
+  const results = document.querySelector("#results");
   results.innerText = playRound(playerSelection, computerSelection);
 }
 
 function updateScores() {
+  const playerScoreDiv = document.querySelector("#player-score");
+  const computerScoreDiv = document.querySelector("#computer-score");
   playerScoreDiv.innerText = playerScore;
   computerScoreDiv.innerText = computerScore;
 }
@@ -128,10 +127,6 @@ function styleUnselectedSiblings(target) {
   unselected = getAllSiblings(target, target.parentNode);
   unselected.forEach((sibling) => sibling.classList.add("greyed-out"));
 }
-
-allButtons.forEach((button) =>
-  button.addEventListener("transitionend", removeTransition)
-);
 
 function removeTransition(e) {
   if (e.propertyName !== "transform") return;
