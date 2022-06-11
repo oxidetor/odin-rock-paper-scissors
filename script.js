@@ -77,6 +77,7 @@ playerButtons.forEach((playerButton) =>
     "click",
     (e) => {
       removeSelectedStyle(e);
+      removeGreyedOutStyle(e);
 
       results.innerText = "";
       playerTarget = e.target.parentNode;
@@ -88,6 +89,19 @@ playerButtons.forEach((playerButton) =>
       const computerTarget = document.querySelector(
         `#computer-btns img[alt="${computerSelection}"]`
       ).parentNode;
+
+      playerUnselected = getAllSiblings(playerTarget, playerTarget.parentNode);
+      computerUnselected = getAllSiblings(
+        computerTarget,
+        computerTarget.parentNode
+      );
+
+      playerUnselected.forEach((unselected) =>
+        unselected.classList.add("greyed-out")
+      );
+      computerUnselected.forEach((unselected) =>
+        unselected.classList.add("greyed-out")
+      );
 
       playerTarget.classList.add("clicked", "selected");
       computerTarget.classList.add("clicked", "selected");
@@ -108,6 +122,11 @@ playerButtons.forEach((playerButton) =>
   )
 );
 
+function getAllSiblings(element, parent) {
+  const children = [...parent.children];
+  return children.filter((child) => child !== element);
+}
+
 allButtons.forEach((button) =>
   button.addEventListener("transitionend", removeTransition)
 );
@@ -119,6 +138,10 @@ function removeTransition(e) {
 
 function removeSelectedStyle(e) {
   allButtons.forEach((button) => button.classList.remove("selected"));
+}
+
+function removeGreyedOutStyle(e) {
+  allButtons.forEach((button) => button.classList.remove("greyed-out"));
 }
 
 const finalResults = document.querySelector(".final-results");
