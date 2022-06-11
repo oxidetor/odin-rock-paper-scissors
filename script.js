@@ -13,31 +13,6 @@ function computerPlay() {
   }
 }
 
-function getPlayerSelection() {
-  let input;
-  while (true) {
-    input = prompt(
-      "Type one of: Rock, Paper, or Scissors (or Q/q/ESC to quit)"
-    );
-
-    if (input == null || input == "Q" || input == "q") {
-      return "quit";
-    }
-
-    // Trim whitespace and capitalize first letter of input (rest lowercase)
-    input = `${input.trim().slice(0, 1).toUpperCase()}${input
-      .trim()
-      .slice(1)
-      .toLowerCase()}`;
-
-    if (input == "Rock" || input == "Paper" || input == "Scissors") break;
-    else {
-      alert("Bad input. Try again!");
-    }
-  }
-  return input;
-}
-
 function chooseWinner(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) return 0;
   else if (
